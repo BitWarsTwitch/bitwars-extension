@@ -4,53 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BitWars</title>
-    <style>
-        html, body, #content {
-            position: absolute;
-            background-color: #18181b;
-            color: white;
-            font-family: 'Inter', sans-serif;
-            top: 0px;
-            left: 0px;
-            right: 0px;
-            bottom: 0px;
-        }
-
-        #content {
-            overflow: scroll;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Reduced minimum width */
-            gap: 15px; /* Reduced gap */
-            width: 100%;
-            padding-bottom: 20px; /* Add bottom padding for last row */
-        }
-        
-
-        .product-card {
-            background-color: #1f1f23;
-            border-radius: 10px;
-            padding: 12px; /* Reduced padding */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: transform 0.2s;
-        }
-
-        .product-gif {
-            width: 100%;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 8px;
-        }
-
-        /* Rest of your styles remain the same */
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="content"><div class="product-grid" id="productGrid"></div>
+    <div id="content"><div class="product-grid" id="productGrid"></div></div>
     <script src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
     <script src="chat.js"></script>
 </body>

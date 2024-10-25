@@ -7,37 +7,37 @@ function createProductCard(gifName, bitsCost, productName) {
   const card = document.createElement("div");
   card.className = "product-card";
 
-  const gif = document.createElement("img");
-  gif.src = `/public/${gifName}`;
-  gif.className = "product-gif";
-  gif.alt = gifName;
+  const titleContainer = document.createElement("div");
+  titleContainer.className = "product-title-container";
 
   const title = document.createElement("h3");
   title.className = "product-title";
   title.textContent = productName;
 
+  titleContainer.appendChild(title);
+
+  const gif = document.createElement("img");
+  gif.src = `/public/${gifName}`;
+  gif.className = "product-gif";
+  gif.alt = gifName;
+
   const button = document.createElement("button");
   button.className = "buy-button";
   button.textContent = `Buy for ${bitsCost} Bits`;
 
-  // Using the working structure from the original code
   button.onclick = () => {
     Twitch.ext.bits
       .useBits(gifName.replace(".gif", ""))
       .then((transaction) => {
         console.log("Purchase successful!", transaction);
-        // fetch("http://localhost:8000/test")
-        //   .then((response) => response.json())
-        //   .then((data) => console.log("Purchase successful!", data))
-        //   .catch((error) => console.log("Error making GET request:", error));
       })
       .catch((error) =>
         console.log("Error processing bits transaction:", error)
       );
   };
 
+  card.appendChild(titleContainer);
   card.appendChild(gif);
-  card.appendChild(title);
   card.appendChild(button);
 
   return card;
@@ -60,7 +60,6 @@ Twitch.ext.bits.getProducts().then((products) => {
   console.log("products:", products);
 
   gifs.forEach((gifName) => {
-    // [ { sku: 'abc123', cost: { type: 'bits', amount: '10' } } ]
     const product = products.find((p) => p.sku === gifName.replace(".gif", ""));
     const productName = product.displayName;
     const bitsCost = product ? product.cost.amount : "100";
