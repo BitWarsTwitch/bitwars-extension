@@ -1,36 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="style_config.css">
+</head>
 <body>
-    <div class="extension"> 
-      <!-- basic form that allows streamer to select which WYR options --> 
-      <form id = "form">
-      <fieldset>
-        <legend> Dilemma Options Test! </legend> 
-        <div>
-          <input type="checkbox" id = "one" name="option" value = "lose the ability to read" checked> 
-          <label for="one">lose the ability to read! </label>
+    <div class="background-container"></div>
+    <div class="config-container">
+        <h1 class="main-title">Setup Guide</h1>
+        
+        <div class="stepper">
+            <div class="step">
+                <div class="step-title">1. Connect to BitWars from OBS</div>
+                <div class="step-content">
+                    Add your custom URL to OBS on a Browser Source. If you don't know how, look up "OBS Browser source" online.
+                </div>
+                <button class="url-button">GET URL</button>
+            </div>
+
+            <div class="step">
+                <div class="step-title">2. (Optional) Add a Co-Streamer Code</div>
+                <div class="step-content">
+                    In order to create a play session with another streamer, each of you have to put eachother's friend code in the following field. Leave empty if you want to use the plugin alone.
+                </div>
+                <div class="input-group">
+                    <input type="text" class="costreamer-input" placeholder="Enter co-streamer code">
+                    <button class="save-button">Save</button>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">3. Have Fun & Share</div>
+                <div class="step-content">
+                    Thanks for using BitWars. This has been created as part of a Twitch Hackathon. Sharing helps us grow and improve our extension!
+                </div>
+            </div>
         </div>
-        <div>
-          <input type="checkbox" id = "two" name="option" value = "eat nothing but ketchup for the rest of your life" checked> 
-          <label for="two">eat nothing but ketchup for the rest of your life </label>
-        </div>
-        <div>
-          <input type="checkbox" id = "three" name="option" value = "be dumb but always listened to" checked> 
-          <label for="three"> be dumb but always listened to </label>
-        </div>
-        <div>
-            <input type="checkbox" id = "four" name="option" value = "be alone for your entire life" checked> 
-            <label for="four"> be alone for your entire life </label>
-        </div>
-        <div>
-            <input type="checkbox" id = "five" name="option" value = "turn every person you look at into stone" checked> 
-            <label for="five">turn every person you look at into stone </label>
-        </div>
-        <input type="submit" value="Submit">
-        </fieldset> 
-      </form>
     </div>
+
+    <img src="public/3.gif" class="corner-gif-left">
+    <img src="castle_piskel.gif" class="corner-gif-right">
     
-  <!--import extension helper library -->
     <script src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
-  </body>
-  
-  </html>
+    <script src="config.js"></script>
+</body>
+</html>
