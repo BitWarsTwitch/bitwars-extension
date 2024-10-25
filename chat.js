@@ -1,6 +1,25 @@
-window.Twitch.ext.onAuthorized((auth) => {
-  const token = auth.helixToken;
-  const channelId = auth.channelId;
+let storedChannelId = null;
+let storedUsername = null;
+
+window.Twitch.ext.onAuthorized(async (auth) => {
+  if (!window.Twitch.ext.viewer.isLinked) {
+    return;
+  }
+
+  storedChannelId = auth.channelId;
+  console.log("Channel ID:", storedChannelId);
+
+  const endpointUrl = "https://api.twitch.tv/helix/users";
+  const url = `${endpointUrl}?id=${window.Twitch.ext.viewer.id}`;
+  const response = await fetch(url, {
+    headers: {
+      "client-id": auth.clientId,
+      Authorization: `Extension ${auth.helixToken}`,
+    },
+  });
+  const body = await response.json();
+  storedUsername = body.data.at(0)?.display_name;
+  console.log("Username:", storedUsername);
 });
 
 function createProductCard(gifName, bitsCost, productName) {
@@ -26,11 +45,8 @@ function createProductCard(gifName, bitsCost, productName) {
   button.textContent = `Buy for ${bitsCost} Bits`;
 
   button.onclick = () => {
-    Twitch.ext.bits
+    window.Twitch.ext.bits
       .useBits(gifName.replace(".gif", ""))
-      .then((transaction) => {
-        console.log("Purchase successful!", transaction);
-      })
       .catch((error) =>
         console.log("Error processing bits transaction:", error)
       );
@@ -42,6 +58,34 @@ function createProductCard(gifName, bitsCost, productName) {
 
   return card;
 }
+
+window.Twitch.ext.bits.onTransactionComplete((transaction) => {
+  console.log("Transaction completed!", transaction);
+
+  const attackId = parseInt(transaction.product.sku);
+  const payload = {
+    sender_session_id: storedChannelId,
+    attack_id: attackId,
+    user_name: storedUsername,
+  };
+
+  try {
+    console.log("Spawning attack...");
+    console.log(payload);
+    fetch("http://localhost:8000/spawn_attack", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log("Attack spawn response:", data))
+      .catch((error) => console.log("Error spawning attack:", error));
+  } catch (error) {
+    console.log("Error spawning attack:", error);
+  }
+});
 
 // Initialize products
 Twitch.ext.bits.getProducts().then((products) => {
