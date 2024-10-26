@@ -8,10 +8,10 @@ body {
     padding: 20px;
     background: repeating-linear-gradient(
         45deg,
-        #80b7ff,
-        #80b7ff 30px,
-        #adbef7 30px,
-        #adbef7 60px
+        #ffffff,
+        #ffffff 30px,
+        #f3f3f3 30px,
+        #f3f3f3 60px
     );
     background-size: 200% 200%;
     animation: stripe-slide 8s linear infinite;
@@ -33,6 +33,28 @@ body {
     position: relative;
     z-index: 2;
     overflow-y: auto;
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: #ffffff rgba(255, 255, 255, 0.2); /* For Firefox */
+}
+
+/* For Webkit browsers (Chrome, Safari, etc.) */
+.config-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.config-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.config-container::-webkit-scrollbar-thumb {
+    background: #ffffff;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.config-container::-webkit-scrollbar-thumb:hover {
+    background: #ffffff;
 }
 
 .input-group {
@@ -45,12 +67,13 @@ body {
     background-color: #0066ff;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 40px;
     border-radius: 8px;
     font-size: 16px;
     cursor: pointer;
     transition: transform 0.2s;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
 }
 
 .save-button:hover {
@@ -58,22 +81,6 @@ body {
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
 
-.name-save-button {
-    background-color: #0066ff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: transform 0.2s;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.name-save-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
-}
 
 .background-container {
     position: fixed;
@@ -88,7 +95,7 @@ body {
 }
 
 .url-button {
-    background-color: #0066ff;
+    background-color: rgba(255, 255, 255, 0.2);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -135,7 +142,7 @@ body {
 }
 
 .toggle-visibility {
-    background-color: #0066ff;
+    background-color: rgba(255, 255, 255, 0.2);
     border: none;
     width: 50px;
     height: 50px;
@@ -211,6 +218,17 @@ body {
     margin-top: 10px;
 }
 
+.enemy-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #0066ff;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+
 .corner-gif-left {
     position: fixed;
     bottom: 0px;
@@ -248,4 +266,45 @@ body {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+/* tab properties */
+
+.tab-container {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 4px;
+    border-radius: 8px;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 12px 24px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.tab-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.tab-button.active {
+    background: #0066ff;
+    color: white;
+}
+
+.tab-content {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }

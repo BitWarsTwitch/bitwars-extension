@@ -16,17 +16,31 @@
                     </div>
                     <div class="input-group">
                         <input type="text" class="name-input" placeholder="Enter your nickname">
-                        <button class="name-save-button">Save</button>
                     </div>
                 </div>
                 <div class="step">
-                    <div class="step-title">2. (Optional) Add a Co-Streamer Code</div>
-                    <div class="step-content">
-                        In order to create a play session with another streamer, each of you have to put eachother's friend code in the following field. Leave empty if you want to use the plugin alone.
+                    <div class="step-title">2. Choose Your Game Mode</div>
+                    <div class="tab-container">
+                        <button class="tab-button active" data-tab="costreaming">Co-Streaming</button>
+                        <button class="tab-button" data-tab="singleplayer">Singleplayer</button>
                     </div>
-                    <div class="input-group">
-                        <input type="text" class="costreamer-input" placeholder="Enter co-streamer code">
-                        <button class="save-button">Save</button>
+                    
+                    <div class="tab-content" id="costreaming-content">
+                        <div class="step-content">
+                            In order to create a play session with another streamer, each of you have to put eachother's friend code in the following field.
+                        </div>
+                        <div class="input-group">
+                            <input type="text" class="costreamer-input" placeholder="Enter co-streamer's friend code">
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="singleplayer-content" style="display: none;">
+                        <div class="step-content">
+                            Play alone without adding a friend code. For example, you can have each tower be an option users can 'fight' for. Set the name of the second tower below.
+                        </div>
+                        <div class="input-group">
+                            <input type="text" class="enemy-input" placeholder="Enter enemy tower's name">
+                        </div>
                     </div>
                 </div>
                 <div class="step">
@@ -40,14 +54,12 @@
                             <img src="public/eye.png" alt="Toggle visibility" class="eye-icon">
                         </button>
                     </div>
-                </div>
-
-                <div class="step">
-                    <div class="step-title">3. Have Fun & Share</div>
-                    <div class="step-content">
-                        Thanks for trying out BitWars! Born from a Twitch Hackathon, we aim to improve the product over time. Share the fun and help us power up!                </div>
-                </div>
+                </div>                                          
+                
             </div>
+            <div style="width: 8; height: 8px;"></div>
+            <button class="save-button">Save</button>
+            <div style="width: 100px; height: 100px;"></div>
         </div>
     </div>
 
