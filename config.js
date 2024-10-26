@@ -94,10 +94,31 @@ document.querySelector(".costreamer-input").addEventListener("input", (e) => {
   console.log("Co-streamer code:", e.target.value);
 });
 
-document.querySelector(".save-button").addEventListener("click", () => {
+document.querySelector(".save-button").addEventListener("click", async () => {
   const code = document.querySelector(".costreamer-input").value;
   console.log("Saving co-streamer code:", code);
-  updateSession(globalChannelId);
+
+  try {
+    await updateSession(globalChannelId);
+
+    // Show notification
+    const notification = document.querySelector(".save-notification");
+    notification.classList.add("show");
+
+    // Hide notification after 3 seconds
+    setTimeout(() => {
+      notification.classList.remove("show");
+    }, 3000);
+
+    // Add button animation
+    const saveButton = document.querySelector(".save-button");
+    saveButton.style.backgroundColor = "#4CAF50";
+    setTimeout(() => {
+      saveButton.style.backgroundColor = "#0066ff";
+    }, 1000);
+  } catch (error) {
+    console.error("Error saving settings:", error);
+  }
 });
 
 // tab navigation for second step
