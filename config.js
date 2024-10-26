@@ -11,8 +11,11 @@ BASE_URL = "http://localhost:3000/";
 twitch.onAuthorized((auth) => {
   token = auth.token;
   userId = auth.userId;
-  console.log(token);
   const channelId = auth.channelId;
+
+  // Set the URL in the input field
+  const fullUrl = `${BASE_URL}${channelId}`;
+  document.querySelector(".url-input").value = fullUrl;
 
   fetch(`http://localhost:8000/sessions/${channelId}`, {
     headers: {
@@ -22,6 +25,9 @@ twitch.onAuthorized((auth) => {
     .then((response) => response.json())
     .then((data) => {
       console.log("Session data:", data);
+      // Hide spinner and show input elements
+      document.getElementById("urlSpinner").style.display = "none";
+      document.querySelector(".config-container").style.display = "block";
     })
     .catch((error) => {
       console.log("Error fetching session:", error);

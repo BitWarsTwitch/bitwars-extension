@@ -5,7 +5,7 @@
 </head>
 <body>
     <div class="background-container"></div>
-    <div class="config-container">
+    <div class="config-container" style="display: none;">
         <h1 class="main-title">Setup Guide</h1>
         
         <div class="stepper">
@@ -15,7 +15,7 @@
                     Add your custom URL to OBS on a Browser Source. If you don't know how, look up "OBS Browser source" online.
                 </div>
                 <div class="input-group">
-                    <input type="password" class="url-input" value="test" readonly>
+                    <input type="password" class="url-input" value="" readonly>
                     <button class="toggle-visibility">
                         <img src="public/eye.png" alt="Toggle visibility" class="eye-icon">
                     </button>
@@ -39,6 +39,10 @@
                     Thanks for trying out BitWars! Born from a Twitch Hackathon, we aim to improve the product over time. Share the fun and help us power up!                </div>
             </div>
         </div>
+    </div>
+
+    <div class="spinner-container" id="urlSpinner" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+        <div class="spinner"></div>
     </div>
 
     <img src="public/3.gif" class="corner-gif-left">
