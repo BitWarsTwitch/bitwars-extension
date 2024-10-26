@@ -45,7 +45,7 @@ body {
     color: white;
     border: none;
     padding: 10px 20px;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 16px;
     cursor: pointer;
     transition: transform 0.2s;
@@ -74,9 +74,9 @@ body {
     background-color: #0066ff;
     color: white;
     border: none;
-    padding: 20px 40px;
+    padding: 10px 20px;
     border-radius: 8px;
-    font-size: 24px;
+    font-size: 10px;
     font-weight: bold;
     cursor: pointer;
     transition: transform 0.2s;
@@ -86,6 +86,60 @@ body {
 .url-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.url-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.url-button i {
+    font-size: 18px;
+}
+
+@keyframes copied {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.copied-animation {
+    animation: copied 0.3s ease-in-out;
+}
+
+.url-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #0066ff;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 16px;
+}
+
+.toggle-visibility {
+    background-color: #0066ff;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.toggle-visibility:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.eye-icon {
+    width: 20px;
+    height: 20px;
 }
 
 .main-title {
