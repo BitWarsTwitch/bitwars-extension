@@ -4,39 +4,49 @@
     <link rel="stylesheet" href="style_config.css">
 </head>
 <body>
-    <div class="background-container"></div>
+    <div class="background-container">
     <div class="config-container" style="display: none;">
         <h1 class="main-title">Setup Guide</h1>
         
-        <div class="stepper">
-            <div class="step">
-                <div class="step-title">1. Connect to BitWars from OBS</div>
-                <div class="step-content">
-                    Add your custom URL to OBS on a Browser Source. If you don't know how, look up "OBS Browser source" online.
+            <div class="stepper">
+                <div class="step">
+                    <div class="step-title">1. Configure your Profile </div>
+                    <div class="step-content">
+                        Setup the name of your tower! This will appear in the left side of your screen.
+                    </div>
+                    <div class="input-group">
+                        <input type="text" class="name-input" placeholder="Enter your nickname">
+                        <button class="name-save-button">Save</button>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <input type="password" class="url-input" value="" readonly>
-                    <button class="toggle-visibility">
-                        <img src="public/eye.png" alt="Toggle visibility" class="eye-icon">
-                    </button>
+                <div class="step">
+                    <div class="step-title">2. (Optional) Add a Co-Streamer Code</div>
+                    <div class="step-content">
+                        In order to create a play session with another streamer, each of you have to put eachother's friend code in the following field. Leave empty if you want to use the plugin alone.
+                    </div>
+                    <div class="input-group">
+                        <input type="text" class="costreamer-input" placeholder="Enter co-streamer code">
+                        <button class="save-button">Save</button>
+                    </div>
                 </div>
-            </div>
+                <div class="step">
+                    <div class="step-title">3. Connect to BitWars from OBS</div>
+                    <div class="step-content">
+                        Add your custom URL to OBS on a Browser Source. If you don't know how, look up "OBS Browser source" online.
+                    </div>
+                    <div class="input-group">
+                        <input type="password" class="url-input" value="" readonly>
+                        <button class="toggle-visibility">
+                            <img src="public/eye.png" alt="Toggle visibility" class="eye-icon">
+                        </button>
+                    </div>
+                </div>
 
-            <div class="step">
-                <div class="step-title">2. (Optional) Add a Co-Streamer Code</div>
-                <div class="step-content">
-                    In order to create a play session with another streamer, each of you have to put eachother's friend code in the following field. Leave empty if you want to use the plugin alone.
+                <div class="step">
+                    <div class="step-title">3. Have Fun & Share</div>
+                    <div class="step-content">
+                        Thanks for trying out BitWars! Born from a Twitch Hackathon, we aim to improve the product over time. Share the fun and help us power up!                </div>
                 </div>
-                <div class="input-group">
-                    <input type="text" class="costreamer-input" placeholder="Enter co-streamer code">
-                    <button class="save-button">Save</button>
-                </div>
-            </div>
-
-            <div class="step">
-                <div class="step-title">3. Have Fun & Share</div>
-                <div class="step-content">
-                    Thanks for trying out BitWars! Born from a Twitch Hackathon, we aim to improve the product over time. Share the fun and help us power up!                </div>
             </div>
         </div>
     </div>

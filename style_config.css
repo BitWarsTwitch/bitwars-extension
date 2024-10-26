@@ -19,9 +19,11 @@ body {
     font-family: 'Arial', sans-serif;
     display: flex;
     justify-content: center;
+    overflow: hidden;
 }
+
 .config-container {
-    height: 700px;
+    height: 100vh;
     width: 90%;
     max-width: 500px;
     display: flex;
@@ -56,6 +58,22 @@ body {
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
 
+.name-save-button {
+    background-color: #0066ff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.name-save-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
 
 .background-container {
     position: fixed;
@@ -174,6 +192,16 @@ body {
 }
 
 .costreamer-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #0066ff;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.name-input {
     width: 100%;
     padding: 12px;
     border: 2px solid #0066ff;
