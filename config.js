@@ -56,6 +56,7 @@ twitch.onAuthorized(async (auth) => {
   // Set the URL in the input field
   const fullUrl = `${BASE_URL}${channelId}`;
   document.querySelector(".url-input").value = fullUrl;
+  document.querySelector(".channel-id").textContent = channelId;
 
   fetch(`http://localhost:8000/sessions/${channelId}`, {
     headers: {
