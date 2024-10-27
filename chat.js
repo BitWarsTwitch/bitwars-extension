@@ -29,7 +29,7 @@ function createProductCard(gifName, bitsCost, productName) {
   const titleContainer = document.createElement("div");
   titleContainer.className = "product-title-container";
 
-  const title = document.createElement("h3");
+  const title = document.createElement("h2");
   title.className = "product-title";
   title.textContent = productName;
 
@@ -42,7 +42,28 @@ function createProductCard(gifName, bitsCost, productName) {
 
   const button = document.createElement("button");
   button.className = "buy-button";
-  button.textContent = `Buy for ${bitsCost} Bits`;
+
+  // Create a container for bits amount and image
+  const bitsContainer = document.createElement("div");
+  bitsContainer.style.display = "flex";
+  bitsContainer.style.alignItems = "center";
+  bitsContainer.style.justifyContent = "center";
+  bitsContainer.style.gap = "10px";
+
+  // Add the bits amount
+  const bitsAmount = document.createElement("span");
+  bitsAmount.textContent = bitsCost;
+
+  // Add the bits image
+  const bitsImage = document.createElement("img");
+  bitsImage.src = "/public/bit.png";
+  bitsImage.style.height = "35px";
+  bitsImage.style.width = "auto";
+
+  // Combine elements
+  bitsContainer.appendChild(bitsAmount);
+  bitsContainer.appendChild(bitsImage);
+  button.appendChild(bitsContainer);
 
   button.onclick = () => {
     window.Twitch.ext.bits
