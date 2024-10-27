@@ -93,7 +93,7 @@ window.Twitch.ext.bits.onTransactionComplete((transaction) => {
   try {
     console.log("Spawning attack...");
     console.log(payload);
-    fetch("http://localhost:8000/spawn_attack", {
+    fetch("https://bitwars-backend-production.up.railway.app/spawn_attack", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
