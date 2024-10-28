@@ -36,7 +36,7 @@ function createProductCard(gifName, bitsCost, productName) {
   titleContainer.appendChild(title);
 
   const gif = document.createElement("img");
-  gif.src = `/public/${gifName}`;
+  gif.src = `public/${gifName}`;
   gif.className = "product-gif";
   gif.alt = gifName;
 
@@ -56,7 +56,7 @@ function createProductCard(gifName, bitsCost, productName) {
 
   // Add the bits image
   const bitsImage = document.createElement("img");
-  bitsImage.src = "/public/bit.png";
+  bitsImage.src = "public/bit.png";
   bitsImage.style.height = "35px";
   bitsImage.style.width = "auto";
 
