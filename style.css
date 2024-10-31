@@ -151,3 +151,12 @@ body::-webkit-scrollbar-thumb:hover {
 .product-grid::-webkit-scrollbar-track {
     background-color: #f4f4f9;
 }
+
+.product-card:nth-child(n+5) {
+    border: 2px solid #9147ff;
+    box-shadow: 0 8px 16px rgba(145, 71, 255, 0.2);
+}
+
+.product-card:nth-child(n+5):hover {
+    box-shadow: 0 12px 20px rgba(145, 71, 255, 0.3);
+}

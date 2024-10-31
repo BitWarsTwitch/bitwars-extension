@@ -16,7 +16,14 @@ function updateCooldownTimer(button, endTime, productIndex) {
 
   if (timeLeft <= 0) {
     button.disabled = false;
-    button.innerHTML = button.getAttribute("data-original-content");
+    const container = document.createElement("div");
+    container.style.display = "flex";
+    container.style.alignItems = "center";
+    container.style.justifyContent = "center";
+    container.style.gap = "10px";
+    container.innerHTML = "<span>FREE</span>";
+    button.innerHTML = "";
+    button.appendChild(container);
     return;
   }
 
