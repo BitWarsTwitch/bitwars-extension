@@ -1,6 +1,33 @@
 let storedChannelId = null;
 let storedUsername = null;
 
+const FREE_PRODUCTS_COUNT = 4;
+const COOLDOWN_TIMES = [
+  60000, // 1 minute
+  300000, // 5 minutes
+  1800000, // 30 minutes
+  3600000, // 1 hour
+];
+const COOLDOWN_KEYS = ["cooldown1", "cooldown2", "cooldown3", "cooldown4"];
+
+function updateCooldownTimer(button, endTime, productIndex) {
+  const now = Date.now();
+  const timeLeft = endTime - now;
+
+  if (timeLeft <= 0) {
+    button.disabled = false;
+    button.innerHTML = button.getAttribute("data-original-content");
+    return;
+  }
+
+  const minutes = Math.floor(timeLeft / 60000);
+  const seconds = Math.floor((timeLeft % 60000) / 1000);
+  button.innerHTML = `Wait ${minutes}m ${seconds}s`;
+  button.disabled = true;
+
+  setTimeout(() => updateCooldownTimer(button, endTime, productIndex), 1000);
+}
+
 window.Twitch.ext.onAuthorized(async (auth) => {
   if (!window.Twitch.ext.viewer.isLinked) {
     return;
@@ -22,7 +49,7 @@ window.Twitch.ext.onAuthorized(async (auth) => {
   console.log("Username:", storedUsername);
 });
 
-function createProductCard(gifName, bitsCost, productName) {
+function createProductCard(gifName, bitsCost, productName, index) {
   const card = document.createElement("div");
   card.className = "product-card";
 
@@ -43,34 +70,89 @@ function createProductCard(gifName, bitsCost, productName) {
   const button = document.createElement("button");
   button.className = "buy-button";
 
-  // Create a container for bits amount and image
-  const bitsContainer = document.createElement("div");
-  bitsContainer.style.display = "flex";
-  bitsContainer.style.alignItems = "center";
-  bitsContainer.style.justifyContent = "center";
-  bitsContainer.style.gap = "10px";
+  const isFreeProduct = index < FREE_PRODUCTS_COUNT;
+  // Create bits/free container
+  const container = document.createElement("div");
+  container.style.display = "flex";
+  container.style.alignItems = "center";
+  container.style.justifyContent = "center";
+  container.style.gap = "10px";
 
-  // Add the bits amount
-  const bitsAmount = document.createElement("span");
-  bitsAmount.textContent = bitsCost;
+  if (isFreeProduct) {
+    const lastUseTime = localStorage.getItem(COOLDOWN_KEYS[index]);
+    const currentTime = Date.now();
+    const isInCooldown =
+      lastUseTime && currentTime - lastUseTime < COOLDOWN_TIMES[index];
 
-  // Add the bits image
-  const bitsImage = document.createElement("img");
-  bitsImage.src = "public/bit.png";
-  bitsImage.style.height = "35px";
-  bitsImage.style.width = "auto";
+    if (isInCooldown) {
+      const timeLeft =
+        parseInt(lastUseTime) + COOLDOWN_TIMES[index] - currentTime;
+      const minutes = Math.floor(timeLeft / 60000);
+      const seconds = Math.floor((timeLeft % 60000) / 1000);
+      container.innerHTML = `<span>Wait ${minutes}m ${seconds}s</span>`;
+      button.disabled = true;
+    } else {
+      container.innerHTML = "<span>FREE</span>";
+    }
+    button.classList.add("free-button");
+  } else {
+    const bitsAmount = document.createElement("span");
+    bitsAmount.textContent = bitsCost;
+    const bitsImage = document.createElement("img");
+    bitsImage.src = "public/bit.png";
+    bitsImage.style.height = "35px";
+    bitsImage.style.width = "auto";
+    container.appendChild(bitsAmount);
+    container.appendChild(bitsImage);
+  }
 
-  // Combine elements
-  bitsContainer.appendChild(bitsAmount);
-  bitsContainer.appendChild(bitsImage);
-  button.appendChild(bitsContainer);
+  button.appendChild(container);
+  button.setAttribute("data-original-content", button.innerHTML);
+
+  // Check individual cooldown and start timer if needed
+  if (isFreeProduct) {
+    const lastUseTime = localStorage.getItem(COOLDOWN_KEYS[index]);
+    if (lastUseTime && Date.now() - lastUseTime < COOLDOWN_TIMES[index]) {
+      const endTime = parseInt(lastUseTime) + COOLDOWN_TIMES[index];
+      updateCooldownTimer(button, endTime, index);
+    }
+  }
 
   button.onclick = () => {
-    window.Twitch.ext.bits
-      .useBits(gifName.replace(".gif", ""))
-      .catch((error) =>
-        console.log("Error processing bits transaction:", error)
-      );
+    if (isFreeProduct) {
+      const currentTime = Date.now();
+      const lastUseTime = localStorage.getItem(COOLDOWN_KEYS[index]);
+
+      if (!lastUseTime || currentTime - lastUseTime >= COOLDOWN_TIMES[index]) {
+        localStorage.setItem(COOLDOWN_KEYS[index], currentTime);
+
+        // Trigger the free product action
+        const payload = {
+          sender_session_id: storedChannelId,
+          attack_id: parseInt(gifName.replace(".gif", "")),
+          user_name: storedUsername,
+        };
+
+        fetch(
+          "https://bitwars-backend-production.up.railway.app/spawn_attack",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          }
+        );
+
+        updateCooldownTimer(button, currentTime + COOLDOWN_TIMES[index], index);
+      }
+    } else {
+      window.Twitch.ext.bits
+        .useBits(gifName.replace(".gif", ""))
+        .catch((error) =>
+          console.log("Error processing bits transaction:", error)
+        );
+    }
   };
 
   card.appendChild(titleContainer);
@@ -88,6 +170,7 @@ window.Twitch.ext.bits.onTransactionComplete((transaction) => {
     sender_session_id: storedChannelId,
     attack_id: attackId,
     user_name: storedUsername,
+    transaction_id: transaction.transactionId,
   };
 
   try {
@@ -109,6 +192,7 @@ window.Twitch.ext.bits.onTransactionComplete((transaction) => {
 });
 
 // Initialize products
+// Modify the products initialization to include index
 Twitch.ext.bits.getProducts().then((products) => {
   const productGrid = document.getElementById("productGrid");
   const gifs = [
@@ -122,13 +206,11 @@ Twitch.ext.bits.getProducts().then((products) => {
     "8.gif",
   ];
 
-  console.log("products:", products);
-
-  gifs.forEach((gifName) => {
+  gifs.forEach((gifName, index) => {
     const product = products.find((p) => p.sku === gifName.replace(".gif", ""));
     const productName = product.displayName;
     const bitsCost = product ? product.cost.amount : "100";
-    const card = createProductCard(gifName, bitsCost, productName);
+    const card = createProductCard(gifName, bitsCost, productName, index);
     productGrid.appendChild(card);
   });
 });
