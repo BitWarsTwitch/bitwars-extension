@@ -7,7 +7,7 @@ twitch.onContext((context) => {
 });
 
 BASE_URL = "https://bitwars-overlay-production.up.railway.app/";
-BACKEND_URL = "https://bitwars-backend-production.up.railway.app/";
+BACKEND_URL = "https://pixelwars-backend-production.up.railway.app/";
 
 async function setName(auth) {
   const endpointUrl = "https://api.twitch.tv/helix/users";
@@ -59,7 +59,7 @@ twitch.onAuthorized(async (auth) => {
   document.querySelector(".channel-id").textContent = channelId;
 
   fetch(
-    `https://bitwars-backend-production.up.railway.app/sessions/${channelId}`,
+    `https://pixelwars-backend-production.up.railway.app/sessions/${channelId}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

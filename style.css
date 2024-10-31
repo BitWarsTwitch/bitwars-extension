@@ -96,7 +96,7 @@ body::-webkit-scrollbar-thumb:hover {
     color: #333;
     text-align: center;
 }
-.buy-button {
+.get-button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -113,12 +113,12 @@ body::-webkit-scrollbar-thumb:hover {
     font-weight: bold;
 }
 
-.buy-button:hover {
-    background-color: #7d5bbe;
+.get-button:hover {
+    background-color: #4CAF50;
     color: #ffffff;
 }
 
-.buy-button:disabled {
+.get-button:disabled {
     background-color: #cccccc;
     cursor: not-allowed;
     color: #666666;

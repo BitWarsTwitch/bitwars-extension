@@ -75,7 +75,7 @@ function createProductCard(gifName, bitsCost, productName, index) {
   gif.alt = gifName;
 
   const button = document.createElement("button");
-  button.className = "buy-button";
+  button.className = "get-button";
 
   const isFreeProduct = index < FREE_PRODUCTS_COUNT;
   // Create bits/free container
@@ -141,7 +141,7 @@ function createProductCard(gifName, bitsCost, productName, index) {
         };
 
         fetch(
-          "https://bitwars-backend-production.up.railway.app/spawn_attack",
+          "https://pixelwars-backend-production.up.railway.app/spawn_attack",
           {
             method: "POST",
             headers: {
@@ -183,7 +183,7 @@ window.Twitch.ext.bits.onTransactionComplete((transaction) => {
   try {
     console.log("Spawning attack...");
     console.log(payload);
-    fetch("https://bitwars-backend-production.up.railway.app/spawn_attack", {
+    fetch("https://pixelwars-backend-production.up.railway.app/spawn_attack", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
