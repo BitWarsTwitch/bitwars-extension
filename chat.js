@@ -21,7 +21,7 @@ function updateCooldownTimer(button, endTime, productIndex) {
     container.style.alignItems = "center";
     container.style.justifyContent = "center";
     container.style.gap = "10px";
-    container.innerHTML = "<span>FREE</span>";
+    container.innerHTML = "<span>SEND</span>";
     button.innerHTML = "";
     button.appendChild(container);
     return;
@@ -99,7 +99,7 @@ function createProductCard(gifName, bitsCost, productName, index) {
       container.innerHTML = `<span>Wait ${minutes}m ${seconds}s</span>`;
       button.disabled = true;
     } else {
-      container.innerHTML = "<span>FREE</span>";
+      container.innerHTML = "<span>SEND</span>";
     }
     button.classList.add("free-button");
   } else {
